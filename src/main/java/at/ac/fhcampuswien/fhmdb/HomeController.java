@@ -68,7 +68,7 @@ public class HomeController implements Initializable {
         genreComboBox.setPromptText("Filter by Genre");
 
         ratingComboBox.setPromptText("Filter by Rating");
-        String[] ratingText = new String[]{"0+","1+","2+","3+","4+","5+","6+","7+","8+","9+"};
+        String[] ratingText = new String[]{"1+","2+","3+","4+","5+","6+","7+","8+","9+"};
         ratingComboBox.getItems().add("No filter");
         ratingComboBox.getItems().addAll(ratingText);
     }
