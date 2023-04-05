@@ -41,7 +41,9 @@ public class MovieAPI {
     public static List<Movie> jsonToMovies(String json){
         Gson gson = new Gson();
         TypeToken<List<Movie>> collectionType = new TypeToken<>() {};
-        return gson.fromJson(json, collectionType);
+
+        //problem bei arrays parsen
+        return gson.fromJson(json, collectionType.getType());
     }
 
     public static List<Movie> getAllMovies(){

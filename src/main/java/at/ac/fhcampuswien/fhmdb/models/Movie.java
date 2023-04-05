@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
+
+    public String id;
     public final String title;
-    public final String description;
     public final List<Genre> genres;
 
     public final int releaseYear;
+
+    public final String description;
     public final String imgUrl;
     public final int lengthInMinutes;
     public final String[] directors;
@@ -16,7 +19,8 @@ public class Movie {
     public final String[] mainCast;
     public final double rating;
 
-    public Movie(String title, String description, List<Genre> genres, int releaseYear, String imgUrl, int lengthInMinutes, String[] directors, String[] writers, String[] mainCast, double rating) {
+    public Movie(String id, String title, List<Genre> genres, int releaseYear,String description, String imgUrl, int lengthInMinutes, String[] directors, String[] writers, String[] mainCast, double rating) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.genres = genres;
