@@ -1,23 +1,22 @@
 package at.ac.fhcampuswien.fhmdb.models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Movie {
-    private final String title;
-    private final String description;
-    private final List<Genre> genres;
+    public final String title;
+    public final String description;
+    public final List<Genre> genres;
 
-    private final int releaseYear;
-    private final String imgUrl;
-    private final int lengthInMinutes;
-    private final List<String> directors;
-    private final List<String> writers;
-    private final List<String> mainCast;
-    private final double rating;
+    public final int releaseYear;
+    public final String imgUrl;
+    public final int lengthInMinutes;
+    public final String[] directors;
+    public final String[] writers;
+    public final String[] mainCast;
+    public final double rating;
 
-    public Movie(String title, String description, List<Genre> genres, int releaseYear, String imgUrl, int lengthInMinutes, List<String> directors, List<String> writers, List<String> mainCast, double rating) {
+    public Movie(String title, String description, List<Genre> genres, int releaseYear, String imgUrl, int lengthInMinutes, String[] directors, String[] writers, String[] mainCast, double rating) {
         this.title = title;
         this.description = description;
         this.genres = genres;
