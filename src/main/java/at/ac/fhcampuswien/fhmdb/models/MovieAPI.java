@@ -26,11 +26,11 @@ public class MovieAPI {
         Response response;
         try {
             response = call.execute();
+            return response.body().string();
         }catch (IOException e){
             e.printStackTrace();
             return null;
         }
-        return response.body().toString();
     }
 
     /**
