@@ -16,7 +16,11 @@ public class MovieAPI {
     static String localBaseUrl ="http://localhost:8080/movies";
 
 
-
+    /**
+     * HTTP Get Request an die angegebene URL
+     * @param url An welchen Server die Request gesendet werden soll
+     * @return JSON String der response
+     */
     public static String requestApi(String url){
         Request request = new Request.Builder()
                 .url(url)
@@ -34,6 +38,7 @@ public class MovieAPI {
     }
 
     /**
+     * JSON String wird zu einer Movie List geparsed
      * https://github.com/google/gson/blob/master/UserGuide.md#using-gson
      * @param json JSON String
      * @return Liste von Movies
@@ -45,11 +50,23 @@ public class MovieAPI {
         return gson.fromJson(json, collectionType.getType());
     }
 
+    /**
+     * Alle Available Movies der PROG API werden sich geholt
+     * @return Liste der Movies die vorhanden waren
+     */
     public static List<Movie> getAllMovies(){
         String json = requestApi(localBaseUrl);
         return jsonToMovies(json);
     }
 
+    /**
+     * Holt sich die gesuchten Movies von der API
+     * @param query Text der vorhanden sein soll
+     * @param genre Genre dass der gesuchte Movie haben soll
+     * @param releaseYear der Movies die gesucht sind
+     * @param ratingFrom ab diesem Rating wird gesucht
+     * @return
+     */
     public static List<Movie> getFilteredMovies(String query,String genre,int releaseYear,double ratingFrom){
         //HIER WIRD DANN DIE URL ZUSAMMENGEBAUT
         return null;

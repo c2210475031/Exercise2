@@ -102,20 +102,20 @@ public class HomeController implements Initializable {
      * @param actionEvent
      */
     public void searchBtnClicked(ActionEvent actionEvent) {
+        //Die Parameter werden hergerichtet zum überweisen
         String searchQuery = searchField.getText().trim().toLowerCase();
         String genre = genreComboBox.getSelectionModel().getSelectedItem().toString();
         int releaseYear = Integer.parseInt(releaseYearField.getText());
         double ratingFrom = ratingComboBox.getSelectionModel().getSelectedIndex();
 
-        //zum Sehen wie das aussieht
         //System.out.println(searchQuery+genre+releaseYear+ratingFrom);
 
+        //Gefilterte movieList wird von dem MovieAPI call erstellt (Anhand der Parameter)
         List<Movie> filteredMovies = MovieAPI.getFilteredMovies(searchQuery,genre,releaseYear,ratingFrom);
+        //oberservable wird gecleared und mit der neuen Liste befuellt
         observableMovies.clear();
         observableMovies.addAll(filteredMovies);
 
-
-        //applyAllFilters(searchQuery, genre);
 
         if(sortedState != SortedState.NONE) {
             sortMovies();
