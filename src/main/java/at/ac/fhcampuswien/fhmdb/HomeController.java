@@ -8,6 +8,8 @@ import at.ac.fhcampuswien.fhmdb.ui.MovieCell;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,6 +74,14 @@ public class HomeController implements Initializable {
         String[] ratingText = new String[]{"1+","2+","3+","4+","5+","6+","7+","8+","9+"};
         ratingComboBox.getItems().add("No filter");
         ratingComboBox.getItems().addAll(ratingText);
+
+        //https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
+        //ONLY NUMBERS CAN BE TYPED IN
+        releaseYearField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                releaseYearField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     // sort movies based on sortedState
@@ -87,55 +97,25 @@ public class HomeController implements Initializable {
         }
     }
 
-    public List<Movie> filterByQuery(List<Movie> movies, String query){
-        if(query == null || query.isEmpty()) return movies;
-
-        if(movies == null) {
-            throw new IllegalArgumentException("movies must not be null");
-        }
-
-        return movies.stream()
-                .filter(Objects::nonNull)
-                .filter(movie ->
-                    movie.getTitle().toLowerCase().contains(query.toLowerCase()) ||
-                    movie.getDescription().toLowerCase().contains(query.toLowerCase())
-                )
-                .toList();
-    }
-
-    public List<Movie> filterByGenre(List<Movie> movies, Genre genre){
-        if(genre == null) return movies;
-
-        if(movies == null) {
-            throw new IllegalArgumentException("movies must not be null");
-        }
-
-        return movies.stream()
-                .filter(Objects::nonNull)
-                .filter(movie -> movie.getGenres().contains(genre))
-                .toList();
-    }
-
-    public void applyAllFilters(String searchQuery, Object genre) {
-        List<Movie> filteredMovies = MovieAPI.getAllMovies();
-
-        if (!searchQuery.isEmpty()) {
-            filteredMovies = filterByQuery(filteredMovies, searchQuery);
-        }
-
-        if (genre != null && !genre.toString().equals("No filter")) {
-            filteredMovies = filterByGenre(filteredMovies, Genre.valueOf(genre.toString()));
-        }
-
-        observableMovies.clear();
-        observableMovies.addAll(filteredMovies);
-    }
-
+    /**
+     * When ButtonClicked API gets called with entered Filters
+     * @param actionEvent
+     */
     public void searchBtnClicked(ActionEvent actionEvent) {
         String searchQuery = searchField.getText().trim().toLowerCase();
-        Object genre = genreComboBox.getSelectionModel().getSelectedItem();
+        String genre = genreComboBox.getSelectionModel().getSelectedItem().toString();
+        int releaseYear = Integer.parseInt(releaseYearField.getText());
+        double ratingFrom = ratingComboBox.getSelectionModel().getSelectedIndex();
 
-        applyAllFilters(searchQuery, genre);
+        //zum Sehen wie das aussieht
+        //System.out.println(searchQuery+genre+releaseYear+ratingFrom);
+
+        List<Movie> filteredMovies = MovieAPI.getFilteredMovies(searchQuery,genre,releaseYear,ratingFrom);
+        observableMovies.clear();
+        observableMovies.addAll(filteredMovies);
+
+
+        //applyAllFilters(searchQuery, genre);
 
         if(sortedState != SortedState.NONE) {
             sortMovies();

@@ -42,13 +42,17 @@ public class MovieAPI {
         Gson gson = new Gson();
         TypeToken<List<Movie>> collectionType = new TypeToken<>() {};
 
-        //problem bei arrays parsen
         return gson.fromJson(json, collectionType.getType());
     }
 
     public static List<Movie> getAllMovies(){
         String json = requestApi(localBaseUrl);
         return jsonToMovies(json);
+    }
+
+    public static List<Movie> getFilteredMovies(String query,String genre,int releaseYear,double ratingFrom){
+        //HIER WIRD DANN DIE URL ZUSAMMENGEBAUT
+        return null;
     }
 
 }
