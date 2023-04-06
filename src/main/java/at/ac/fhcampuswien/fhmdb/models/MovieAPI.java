@@ -69,7 +69,53 @@ public class MovieAPI {
      */
     public static List<Movie> getFilteredMovies(String query,String genre,int releaseYear,double ratingFrom){
         //HIER WIRD DANN DIE URL ZUSAMMENGEBAUT
-        return null;
-    }
 
+        if ((query != null && !query.equals("")) || (genre != null && !genre.equals("")) || (releaseYear != 0) || (ratingFrom != 0)) {
+            // build the URL with the search parameters that are present
+            String url = localBaseUrl;
+            if (query != null && !query.equals("")) {
+                url += "?query=" + query;
+            }
+            if (genre != null && !genre.equals("")) {
+                if (url.contains("?")) {
+                    url += "&genre=" + genre;
+                } else {
+                    url += "?genre=" + genre;
+                }
+            }
+            if (releaseYear != 0) {
+                if (url.contains("?")) {
+                    url += "&releaseYear=" + releaseYear;
+                } else {
+                    url += "?releaseYear=" + releaseYear;
+                }
+            }
+            if (ratingFrom != 0) {
+                if (url.contains("?")) {
+                    url += "&ratingFrom=" + ratingFrom;
+                } else {
+                    url += "?ratingFrom=" + ratingFrom;
+                }
+            }
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            // Send the GET request and parse the JSON response using Gson
+            Call call = client.newCall(request);
+            Response response;
+            try {
+                response = call.execute();
+                String jsonData = response.body().string();
+                return jsonToMovies(jsonData);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            // handle the case when no search parameters are present
+            return getAllMovies();
+        }
+    }
 }

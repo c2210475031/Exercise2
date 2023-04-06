@@ -66,13 +66,13 @@ public class HomeController implements Initializable {
         movieListView.setCellFactory(movieListView -> new MovieCell()); // apply custom cells to the listview
 
         Object[] genres = Genre.values();   // get all genres
-        genreComboBox.getItems().add("No filter");  // add "no filter" to the combobox
+     //   genreComboBox.getItems().add("No filter");  // add "no filter" to the combobox
         genreComboBox.getItems().addAll(genres);    // add all genres to the combobox
         genreComboBox.setPromptText("Filter by Genre");
 
         ratingComboBox.setPromptText("Filter by Rating");
         String[] ratingText = new String[]{"1+","2+","3+","4+","5+","6+","7+","8+","9+"};
-        ratingComboBox.getItems().add("No filter");
+       // ratingComboBox.getItems().add("No filter");
         ratingComboBox.getItems().addAll(ratingText);
 
         //https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
@@ -104,9 +104,9 @@ public class HomeController implements Initializable {
     public void searchBtnClicked(ActionEvent actionEvent) {
         //Die Parameter werden hergerichtet zum überweisen
         String searchQuery = searchField.getText().trim().toLowerCase();
-        String genre = genreComboBox.getSelectionModel().getSelectedItem().toString();
-        int releaseYear = Integer.parseInt(releaseYearField.getText());
-        double ratingFrom = ratingComboBox.getSelectionModel().getSelectedIndex();
+        String genre = genreComboBox.getSelectionModel().getSelectedItem() == null ? null : genreComboBox.getSelectionModel().getSelectedItem().toString();
+        int releaseYear = releaseYearField.getText().isEmpty() ? 0 : Integer.parseInt(releaseYearField.getText());
+        double ratingFrom = ratingComboBox.getSelectionModel().getSelectedItem() == null ? 0 : ratingComboBox.getSelectionModel().getSelectedIndex();
 
         //System.out.println(searchQuery+genre+releaseYear+ratingFrom);
 
@@ -121,7 +121,11 @@ public class HomeController implements Initializable {
             sortMovies();
         }
     }
-
+    public void resetBtnclick(ActionEvent actionEvent){
+        allMovies = MovieAPI.getAllMovies();
+        observableMovies.clear();
+        observableMovies.addAll(allMovies); // add all movies to the observable list
+    }
     public void sortBtnClicked(ActionEvent actionEvent) {
         sortMovies();
     }
