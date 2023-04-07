@@ -18,11 +18,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReferenceArray;
+import java.util.stream.Collectors;
 
 public class HomeController implements Initializable {
     @FXML
@@ -142,12 +142,32 @@ public class HomeController implements Initializable {
 
     int getLongestMovieTitle(List<Movie> movies){
         if (movies==null)return -1;
-        AtomicInteger length= new AtomicInteger();
-        movies.stream().forEach(e -> {
+        AtomicInteger length= new AtomicInteger(0);
+        movies.stream().forEach((e) -> {
             if(e.getTitle().length()> length.get()) length.set(e.getTitle().length());
         });
         return length.get();
     }
 
+    long countMoviesFrom(List<Movie> movies, String director){
+        AtomicLong count = new AtomicLong(0);
 
+        if (movies==null)return -1;
+        if (director==null)return -1;
+        movies.stream().forEach((e -> {
+            if (Arrays.stream(e.directors).anyMatch(director::equals)){
+                count.set(count.get()+1);
+            }
+        }));
+
+        return count.get();
+
+
+    }
+
+    List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear){
+        if(movies==null)return null;
+        movies.stream().filter(e -> e.releaseYear > startYear).filter(e -> e.releaseYear < endYear).collect(Collectors.toList());
+        return movies;
+    }
 }
