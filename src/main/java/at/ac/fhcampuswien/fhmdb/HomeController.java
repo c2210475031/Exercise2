@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HomeController implements Initializable {
     @FXML
@@ -136,4 +137,16 @@ public class HomeController implements Initializable {
     public void sortBtnClicked(ActionEvent actionEvent) {
         sortMovies();
     }
+
+
+
+    int getLongestMovieTitle(List<Movie> movies){
+        AtomicInteger length= new AtomicInteger();
+        movies.stream().forEach(e -> {
+            if(e.getTitle().length()> length.get()) length.set(e.getTitle().length());
+        });
+        return length.get();
+    }
+
+
 }
