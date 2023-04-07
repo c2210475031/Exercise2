@@ -141,6 +141,7 @@ public class HomeController implements Initializable {
 
 
     int getLongestMovieTitle(List<Movie> movies){
+        if (movies==null)return -1;
         AtomicInteger length= new AtomicInteger();
         movies.stream().forEach(e -> {
             if(e.getTitle().length()> length.get()) length.set(e.getTitle().length());
