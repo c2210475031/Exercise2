@@ -140,8 +140,8 @@ public class HomeController implements Initializable {
     }
 
 
-    /*String getMostPopularActor(List<Movie> movies){
-
+    String getMostPopularActor(List<Movie> movies){
+/*
         // Erstelle einen Stream von allen Personen im mainCast der Filme
         Stream<String> actorStream = movies.stream()
                 .flatMap(e -> e.getMainCast().stream());
@@ -152,8 +152,9 @@ public class HomeController implements Initializable {
 
 
         // Gib den Namen des am häufigsten auftretenden Schauspielers zurück, oder "N/A" falls keine Filme vorhanden sind
-        return mostFrequentActor.map(Map.Entry::getKey).orElse("N/A");
-    }*/
+        return mostFrequentActor.map(Map.Entry::getKey).orElse("N/A");*/
+        return null;
+    }
 
     int getLongestMovieTitle(List<Movie> movies){
         if (movies==null)return -1;
@@ -182,7 +183,6 @@ public class HomeController implements Initializable {
 
     List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear){
         if(movies==null)return null;
-        movies.stream().filter(e -> e.releaseYear > startYear).filter(e -> e.releaseYear < endYear).collect(Collectors.toList());
-        return movies;
+        return movies.stream().filter(e -> e.releaseYear >= startYear).filter(e -> e.releaseYear <= endYear).collect(Collectors.toList());
     }
 }

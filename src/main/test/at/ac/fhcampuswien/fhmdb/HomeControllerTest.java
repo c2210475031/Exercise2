@@ -33,6 +33,7 @@ class HomeControllerTest {
     void isLongestMovieTitleCorrect(){
 
         int characterCountLongestMovie = homeController.getLongestMovieTitle(movieList);
+        //46 wurde abgezaehlt => Star Wars Film
         assertEquals(46,characterCountLongestMovie);
     }
 
@@ -40,6 +41,7 @@ class HomeControllerTest {
     void isCountOfDirectorMoviesCorrect(){
 
         long count = homeController.countMoviesFrom(movieList,"Steven Spielberg");
+        //Steven Spielberg hat 3 Filme
         assertEquals(3,count);
 
     }
@@ -47,6 +49,7 @@ class HomeControllerTest {
     @Test
     void isMovielistBetweenTwoYearsCorrect(){
         List<Movie> filteredMovieList = homeController.getMoviesBetweenYears(movieList,2013,2019);
+        //sollten 3 filme sein
         assertEquals(3,filteredMovieList.size());
     }
 
