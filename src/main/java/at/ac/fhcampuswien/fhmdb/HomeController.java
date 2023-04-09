@@ -140,7 +140,7 @@ public class HomeController implements Initializable {
     }
 
 
-/*    String getMostPopularActor(List<Movie> movies){
+    /*String getMostPopularActor(List<Movie> movies){
 
         // Erstelle einen Stream von allen Personen im mainCast der Filme
         Stream<String> actorStream = movies.stream()
