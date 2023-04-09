@@ -24,6 +24,8 @@ public class MovieAPI {
     public static String requestApi(String url){
         Request request = new Request.Builder()
                 .url(url)
+                .removeHeader("User-Agent")
+                .addHeader("User-Agent","http.agent")
                 .build();
 
         Call call = client.newCall(request);
@@ -55,7 +57,8 @@ public class MovieAPI {
      * @return Liste der Movies die vorhanden waren
      */
     public static List<Movie> getAllMovies(){
-        String json = requestApi(localBaseUrl);
+        String json = requestApi(baseUrl);
+        System.out.println(json);
         return jsonToMovies(json);
     }
 
@@ -72,7 +75,7 @@ public class MovieAPI {
 
         if ((query != null && !query.equals("")) || (genre != null && !genre.equals("")) || (releaseYear != 0) || (ratingFrom != 0)) {
             // build the URL with the search parameters that are present
-            String url = localBaseUrl;
+            String url = baseUrl;
             if (query != null && !query.equals("")) {
                 url += "?query=" + query;
             }
