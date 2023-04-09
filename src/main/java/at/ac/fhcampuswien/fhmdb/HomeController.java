@@ -23,6 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class HomeController implements Initializable {
     @FXML
@@ -139,6 +140,20 @@ public class HomeController implements Initializable {
     }
 
 
+ /*   String getMostPopularActor(List<Movie> movies){
+
+        // Erstelle einen Stream von allen Personen im mainCast der Filme
+        Stream<String> actorStream = movies.stream()
+                .flatMap(e -> e.getMainCast().stream());
+
+        List<String> namesFlatStream = movies.stream()
+                .flatMap(e)
+                .collect(Collectors.toList());
+
+
+        // Gib den Namen des am häufigsten auftretenden Schauspielers zurück, oder "N/A" falls keine Filme vorhanden sind
+        return mostFrequentActor.map(Map.Entry::getKey).orElse("N/A");
+*/    }
 
     int getLongestMovieTitle(List<Movie> movies){
         if (movies==null)return -1;

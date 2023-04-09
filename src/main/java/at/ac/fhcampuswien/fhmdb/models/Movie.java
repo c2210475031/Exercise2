@@ -59,6 +59,8 @@ public class Movie {
         return genres;
     }
 
+    public List<String> getMainCast() { return mainCast;}
+
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
         /*
