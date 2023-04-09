@@ -98,21 +98,8 @@ public class MovieAPI {
                 }
             }
 
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-
-            // Send the GET request and parse the JSON response using Gson
-            Call call = client.newCall(request);
-            Response response;
-            try {
-                response = call.execute();
-                String jsonData = response.body().string();
-                return jsonToMovies(jsonData);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
+            String json = requestApi(url);
+            return jsonToMovies(json);
         } else {
             // handle the case when no search parameters are present
             return getAllMovies();
