@@ -58,7 +58,6 @@ public class MovieAPI {
      */
     public static List<Movie> getAllMovies(){
         String json = requestApi(baseUrl);
-        System.out.println(json);
         return jsonToMovies(json);
     }
 
