@@ -166,6 +166,8 @@ public class HomeController implements Initializable {
         if (movies==null)return -1;
         // AtomicInteger is because it
         AtomicInteger length= new AtomicInteger(0);
+
+        // Check if every Titel is longer than the longest one found yet if so there is a new length
         movies.stream().forEach((e) -> {
             if(e.getTitle().length()> length.get()) length.set(e.getTitle().length());
         });
@@ -177,6 +179,8 @@ public class HomeController implements Initializable {
 
         if (movies==null)return -1;
         if (director==null)return -1;
+
+        // go through each movie and if the director is in the movie increase the count
         movies.stream().forEach((e -> {
             if (e.directors.stream().anyMatch(director::equals)){
                 count.set(count.get()+1);
@@ -190,6 +194,15 @@ public class HomeController implements Initializable {
 
     List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear){
         if(movies==null)return null;
-        return movies.stream().filter(e -> e.releaseYear >= startYear).filter(e -> e.releaseYear <= endYear).collect(Collectors.toList());
+        if(startYear>endYear)return null;
+
+
+        return movies.stream()
+                //filter out everything that is too early
+                .filter(e -> e.releaseYear >= startYear)
+                //filter out everything that is too late
+                .filter(e -> e.releaseYear <= endYear)
+                //put the remaining movies in a list that we can return
+                .collect(Collectors.toList());
     }
 }
