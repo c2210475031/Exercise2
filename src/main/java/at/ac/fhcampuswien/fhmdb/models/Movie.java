@@ -14,12 +14,12 @@ public class Movie {
     public final String description;
     public final String imgUrl;
     public final int lengthInMinutes;
-    public final String[] directors;
-    public final String[] writers;
-    public final String[] mainCast;
+    public final List<String> directors;
+    public final List<String> writers;
+    public final List<String> mainCast;
     public final double rating;
 
-    public Movie(String id, String title, List<Genre> genres, int releaseYear,String description, String imgUrl, int lengthInMinutes, String[] directors, String[] writers, String[] mainCast, double rating) {
+    public Movie(String id, String title, List<Genre> genres, int releaseYear,String description, String imgUrl, int lengthInMinutes, List<String> directors, List<String> writers, List<String> mainCast, double rating) {
         this.id = id;
         this.title = title;
         this.description = description;

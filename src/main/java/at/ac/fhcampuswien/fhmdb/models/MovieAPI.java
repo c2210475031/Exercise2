@@ -12,7 +12,7 @@ import java.util.List;
 public class MovieAPI {
     static OkHttpClient client = new OkHttpClient();
 
-    String baseUrl = "https://prog2.fh-campuswien.ac.at/movies";
+    static String baseUrl = "https://prog2.fh-campuswien.ac.at/movies";
     static String localBaseUrl ="http://localhost:8080/movies";
 
 
