@@ -22,6 +22,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReferenceArray;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -141,23 +142,29 @@ public class HomeController implements Initializable {
 
 
     String getMostPopularActor(List<Movie> movies){
-/*
-        // Erstelle einen Stream von allen Personen im mainCast der Filme
+
+        //if there are no movies Odysseus is returned
+        if (movies==null)return "Nobody";
+        // actorStream is a stream made up of every actor
         Stream<String> actorStream = movies.stream()
                 .flatMap(e -> e.getMainCast().stream());
 
-        List<String> namesFlatStream = movies.stream()
-                .flatMap(e)
-                .collect(Collectors.toList());
+        // Makes a map that combines every Name with how often it is included
+        Map<String, Long> actorCounts = actorStream
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
+        // Find the actor with the highest count (only the first one found if there are multiple)
+        Optional<Map.Entry<String, Long>> mostFrequentActor = actorCounts.entrySet().stream()
+                .max(Map.Entry.comparingByValue());
 
-        // Gib den Namen des am häufigsten auftretenden Schauspielers zurück, oder "N/A" falls keine Filme vorhanden sind
-        return mostFrequentActor.map(Map.Entry::getKey).orElse("N/A");*/
-        return null;
+        // Return the most frequent Actor or Odysseus
+        return mostFrequentActor.map(Map.Entry::getKey).orElse("Nobody");
     }
+
 
     int getLongestMovieTitle(List<Movie> movies){
         if (movies==null)return -1;
+        // AtomicInteger is because it
         AtomicInteger length= new AtomicInteger(0);
         movies.stream().forEach((e) -> {
             if(e.getTitle().length()> length.get()) length.set(e.getTitle().length());

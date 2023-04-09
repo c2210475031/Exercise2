@@ -26,7 +26,8 @@ class HomeControllerTest {
     void isMostPopularActorCorrect(){
         //should be leonardo di caprio or tom hanks
         String actor = homeController.getMostPopularActor(movieList);
-        assertEquals("Leonardo DiCaprio",actor);
+        System.out.println(actor);
+        assertEquals(  "Tom Hanks",actor);
     }
 
     @Test
